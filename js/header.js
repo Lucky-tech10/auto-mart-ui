@@ -1,7 +1,7 @@
 // header.js
 class DynamicHeader {
   constructor() {
-    this.isLoggedIn = true;
+    this.isLoggedIn = false;
     this.currentUser = null;
 
     this.init();

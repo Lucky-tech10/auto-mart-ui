@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;700;800"
+    />
+    <title>AutoMart - Sign In</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+    <link rel="stylesheet" href="css/auth.css" />
+  </head>
+  <body>
+    <div class="auth-container">
+      <header class="head">
+        <div>
+          <a href="/index.html" class="logo-section">
+            <button class="logo-button">
+              <svg
+                class="logo-icon"
+                viewBox="0 0 48 48"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g clip-path="url(#clip0_6_535)">
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M47.2426 24L24 47.2426L0.757355 24L24 0.757355L47.2426 24ZM12.2426 21H35.7574L24 9.24264L12.2426 21Z"
+                    fill="currentColor"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_6_535">
+                    <rect width="48" height="48" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+            </button>
+            <div class="logo-text">AutoMart</div>
+          </a>
+        </div>
+      </header>
+
+      <main class="login-main-content">
+        <div class="form-container">
+          <h2 class="form-title">Sign in to your account</h2>
+          <h5 class="form-subTitle">
+            Add your details below to get back into the app
+          </h5>
+          <form onsubmit="event.preventDefault(); alert('Login submitted');"">
+            <div class="form-group">
+              <label class="form-label" for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                class="form-input"
+                placeholder="Email"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                minlength="8"
+                class="form-input"
+                placeholder="Password"
+                required
+              />
+            </div>
+
+            <!-- <p class="forgot-password">Forgot Password?</p> -->
+
+            <button type="submit" class="submit-btn">LogIn</button>
+          </form>
+          <p class="form-footer">
+            Don't have an account? <a href="register.html">Create acoount</a>
+          </p>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
