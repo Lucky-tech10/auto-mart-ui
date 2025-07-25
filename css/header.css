@@ -10,8 +10,8 @@ body {
   background-color: #fafafa;
   min-height: 100vh;
   padding-top: 80px;
-  display: flex;
-  flex-direction: column;
+  /* display: flex; */
+  /* flex-direction: column; */
 }
 
 a {
@@ -150,20 +150,23 @@ a {
 }
 
 .user-profile {
-  display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 8px 12px;
+  transition: background-color 0.2s ease;
   background: #f8f8f8;
   border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
   position: relative;
 }
 
 .user-profile:hover {
   background: #ededed;
   border-color: #c5d9eb;
+}
+
+.user-data {
+  display: flex;
+  gap: 12px;
+  padding: 8px 12px;
+  cursor: pointer;
 }
 
 .user-avatar {
