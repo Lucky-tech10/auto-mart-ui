@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;700;800"
+    />
+    <title>AutoMart - 2023 Toyota Camry Details</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+    <link rel="stylesheet" href="css/header.css" />
+    <style>
+      /* Breadcrumb */
+      .breadcrumb {
+        background: white;
+        padding: 16px 0;
+        border-bottom: 1px solid #ededed;
+      }
+
+      .breadcrumb-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .breadcrumb-list {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+      }
+
+      .breadcrumb-item {
+        color: #666;
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      .breadcrumb-item:hover:not(.current) {
+        color: #141414;
+      }
+
+      .breadcrumb-item.current {
+        color: #141414;
+        font-weight: 600;
+      }
+
+      .breadcrumb-separator {
+        color: #ccc;
+      }
+
+      /* Main Content */
+      .main-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 32px 20px;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 40px;
+      }
+
+      /* Car Details Section */
+      .car-details {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      }
+
+      .car-gallery {
+        position: relative;
+        height: 400px;
+        background: linear-gradient(135deg, #f5f5f5, #e5e5e5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #999;
+        font-size: 18px;
+        /* cursor: pointer; */
+        transition: background 0.2s ease;
+      }
+
+      .car-imaged {
+        /* flex: 1 1 70%; */
+        width: 100%;
+        height: 400px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .car-imaged img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .car-badged {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background: #141414;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .car-badged.used {
+        background: #666;
+      }
+
+      .gallery-controls {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .gallery-nav {
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        padding: 4px 8px;
+        border-radius: 4px;
+        transition: background 0.2s ease;
+      }
+
+      .gallery-nav:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .car-info-section {
+        padding: 32px;
+      }
+
+      .car-titles {
+        font-size: 32px;
+        font-weight: 700;
+        color: #141414;
+        margin-bottom: 8px;
+      }
+
+      .car-prices {
+        font-size: 28px;
+        font-weight: 700;
+        color: #059669;
+        margin-bottom: 24px;
+      }
+
+      .car-quick-info {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 24px;
+        margin-bottom: 32px;
+        padding: 24px;
+        background: #f8f8f8;
+        border-radius: 12px;
+      }
+
+      .quick-info-item {
+        text-align: center;
+      }
+
+      .quick-info-icon {
+        font-size: 24px;
+        margin-bottom: 8px;
+      }
+
+      .quick-info-label {
+        font-size: 12px;
+        color: #666;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 4px;
+      }
+
+      .quick-info-value {
+        font-size: 16px;
+        font-weight: 600;
+        color: #141414;
+      }
+
+      .car-description {
+        margin-bottom: 32px;
+      }
+
+      .section-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #141414;
+        margin-bottom: 16px;
+      }
+
+      .description-text {
+        color: #666;
+        line-height: 1.6;
+        font-size: 16px;
+      }
+
+      /* Sidebar */
+      .sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .sidebar-card {
+        background: white;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      }
+
+      .seller-info {
+        text-align: center;
+      }
+
+      .seller-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 28px;
+        font-weight: 600;
+        margin: 0 auto 16px;
+      }
+
+      .seller-name {
+        font-size: 18px;
+        font-weight: 700;
+        color: #141414;
+        margin-bottom: 20px;
+      }
+
+      .action-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .btn {
+        padding: 14px 20px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: none;
+        text-decoration: none;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      .btn-secondary {
+        background: #eaedf1;
+        color: #111518;
+        border: 1px solid #d5dfeb;
+      }
+
+      .btn-secondary:hover {
+        transform: translateY(-1px);
+        border-color: #7c7b7b;
+      }
+
+      .btn-danger {
+        background: #e29393;
+        color: red;
+        border: 1px solid #fecaca;
+      }
+
+      .btn-danger:hover {
+        background: #e66666;
+        border-color: #dc2626;
+        transform: translateY(-1px);
+      }
+
+      /* Modal Styles */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+        padding: 20px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .modal-overlay.active {
+        display: flex;
+        opacity: 1;
+      }
+
+      .modal {
+        background: white;
+        border-radius: 16px;
+        padding: 32px;
+        max-width: 500px;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+        transform: scale(0.9);
+        transition: transform 0.3s ease;
+      }
+
+      .modal-overlay.active .modal {
+        transform: scale(1);
+      }
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+      }
+
+      .modal-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #141414;
+      }
+
+      .modal-close {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #666;
+        padding: 4px;
+        transition: color 0.2s ease;
+      }
+
+      .modal-close:hover {
+        color: #141414;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-label {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: #141414;
+        margin-bottom: 8px;
+      }
+
+      .form-input,
+      .form-textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #dbdbdb;
+        border-radius: 8px;
+        font-size: 14px;
+        font-family: inherit;
+        outline: none;
+        transition: border-color 0.2s ease;
+      }
+
+      .form-input:focus,
+      .form-textarea:focus {
+        border-color: #141414;
+        box-shadow: 0 0 0 3px rgba(20, 20, 20, 0.1);
+      }
+
+      .form-textarea {
+        min-height: 100px;
+        resize: vertical;
+      }
+
+      .offer-info {
+        background: #f0f9ff;
+        border: 1px solid #bae6fd;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 20px;
+      }
+
+      .offer-info-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: #0369a1;
+        margin-bottom: 8px;
+      }
+
+      .current-offer {
+        font-size: 18px;
+        font-weight: 700;
+        color: #0369a1;
+      }
+
+      .report-reasons {
+        display: grid;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+
+      .reason-option {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        border: 1px solid #dbdbdb;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .reason-option:hover {
+        background: #f8f8f8;
+        border-color: #141414;
+      }
+
+      .reason-option.selected {
+        background: #f0f9ff;
+        border-color: #0369a1;
+      }
+
+      .modal-actions {
+        display: flex;
+        gap: 12px;
+        justify-content: flex-end;
+        margin-top: 24px;
+      }
+
+      .btn-modal {
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .btn-modal-primary {
+        background: #141414;
+        color: white;
+        border: none;
+      }
+
+      .btn-modal-primary:hover {
+        background: #333;
+      }
+
+      .btn-modal-primary:disabled {
+        background: #999;
+        cursor: not-allowed;
+      }
+
+      .btn-modal-secondary {
+        background: white;
+        color: #666;
+        border: 1px solid #dbdbdb;
+      }
+
+      .btn-modal-secondary:hover {
+        background: #f5f5f5;
+      }
+
+      .btn-modal-danger {
+        background: #dc2626;
+        color: white;
+        border: none;
+      }
+
+      .btn-modal-danger:hover {
+        background: #b91c1c;
+      }
+
+      .btn-modal:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .success-message {
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        color: #166534;
+        padding: 16px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        display: none;
+      }
+
+      .success-message.show {
+        display: block;
+      }
+
+      /* Mobile Styles */
+      @media (max-width: 768px) {
+        body {
+          padding-top: 70px;
+        }
+
+        .breadcrumb-container {
+          padding: 0 16px;
+        }
+
+        .main-content {
+          padding: 20px 16px;
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
+
+        .car-info-section {
+          padding: 20px;
+        }
+
+        .car-titles {
+          font-size: 24px;
+        }
+
+        .car-prices {
+          font-size: 22px;
+        }
+
+        .car-quick-info {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+          padding: 16px;
+        }
+
+        .modal {
+          padding: 20px;
+          margin: 10px;
+        }
+
+        .modal-title {
+          font-size: 20px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .car-quick-info {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <div class="breadcrumb-container">
+        <div class="breadcrumb-list">
+          <a href="/index.html" class="breadcrumb-item">Home</a>
+          <span class="breadcrumb-separator">›</span>
+          <a href="/index.html" class="breadcrumb-item">Car Listings</a>
+          <span class="breadcrumb-separator">›</span>
+          <span class="breadcrumb-item current">2023 Toyota Camry</span>
+        </div>
+      </div>
+    </div>
+
+    <main class="main-content">
+      <!-- Car Details Section -->
+      <div class="car-details">
+        <!-- Car Gallery -->
+        <div class="car-gallery">
+          <div class="car-imaged">
+            <div class="car-badged used">Used</div>
+            <img src="/images/studio-sedan.png" alt="" />
+          </div>
+          <div class="gallery-controls">
+            <button class="gallery-nav">‹</button>
+            <span id="galleryCounter">1 / 5</span>
+            <button class="gallery-nav">›</button>
+          </div>
+        </div>
+
+        <!-- Car Information -->
+        <div class="car-info-section">
+          <h2 class="car-titles">2023 Toyota Camry LE</h2>
+          <div class="car-prices">₦8,000,000</div>
+
+          <!-- Quick Info Grid -->
+          <div class="car-quick-info">
+            <div class="quick-info-item">
+              <div class="quick-info-icon">📅</div>
+              <div class="quick-info-label">Year</div>
+              <div class="quick-info-value">2023</div>
+            </div>
+
+            <div class="quick-info-item">
+              <div class="quick-info-icon">🚗</div>
+              <div class="quick-info-label">Body Type</div>
+              <div class="quick-info-value">Sedan</div>
+            </div>
+
+            <div class="quick-info-item">
+              <div class="quick-info-icon">📍</div>
+              <div class="quick-info-label">Location</div>
+              <div class="quick-info-value">Lagos</div>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="car-description">
+            <h3 class="section-title">Description</h3>
+            <p class="description-text">
+              This well-maintained 2023 Toyota Camry LE is in excellent
+              condition with only 25,000 km on the odometer. clean title.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <!-- Seller Information -->
+        <div class="sidebar-card seller-info">
+          <div class="seller-avatar">U</div>
+          <div class="seller-name">Member</div>
+
+          <div class="action-buttons">
+            <button class="btn btn-secondary" onclick="openModal('offerModal')">
+              💰 Make Offer
+            </button>
+            <button class="btn btn-danger" onclick="openModal('reportModal')">
+              🚩 Report Listing
+            </button>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Make Offer Modal -->
+    <div class="modal-overlay" id="offerModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title">Make an Offer</h3>
+          <button class="modal-close" onclick="closeModal('offerModal')">
+            ×
+          </button>
+        </div>
+        <div class="success-message" id="offerSuccess">
+          <strong>Offer Submitted!</strong> Your offer has been sent to the
+          seller. You'll receive a response within 24 hours.
+        </div>
+        <div class="offer-info">
+          <div class="offer-info-title">Current Asking Price</div>
+          <div class="current-offer">₦2,850,000</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Your Offer Amount</label>
+          <input
+            type="number"
+            id="offerAmount"
+            class="form-input"
+            placeholder="Enter your offer amount"
+            min="1000000"
+            required
+          />
+        </div>
+        <div class="modal-actions">
+          <button
+            class="btn-modal btn-modal-secondary"
+            onclick="closeModal('offerModal')"
+          >
+            Cancel
+          </button>
+          <button class="btn-modal btn-modal-primary" disabled>
+            Submit Offer
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Report Listing Modal -->
+    <div class="modal-overlay" id="reportModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title">Report Listing</h3>
+          <button class="modal-close" onclick="closeModal('reportModal')">
+            ×
+          </button>
+        </div>
+        <div class="success-message" id="reportSuccess">
+          <strong>Report Submitted!</strong> Thank you for helping us maintain
+          listing quality. We'll review this report within 24 hours.
+        </div>
+        <div class="form-group">
+          <label class="form-label">Reason for reporting</label>
+          <div class="report-reasons" id="reportReasons">
+            <div class="reason-option" data-reason="misleading">
+              <input
+                type="radio"
+                name="reportReason"
+                value="misleading"
+                id="misleading"
+              />
+              <label for="misleading">Misleading information or photos</label>
+            </div>
+            <div class="reason-option" data-reason="duplicate">
+              <input
+                type="radio"
+                name="reportReason"
+                value="duplicate"
+                id="duplicate"
+              />
+              <label for="duplicate">Duplicate listing</label>
+            </div>
+            <div class="reason-option" data-reason="sold">
+              <input type="radio" name="reportReason" value="sold" id="sold" />
+              <label for="sold">Vehicle already sold</label>
+            </div>
+            <div class="reason-option" data-reason="spam">
+              <input type="radio" name="reportReason" value="spam" id="spam" />
+              <label for="spam">Spam or fraudulent listing</label>
+            </div>
+            <div class="reason-option" data-reason="other">
+              <input
+                type="radio"
+                name="reportReason"
+                value="other"
+                id="other"
+              />
+              <label for="other">Other</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Additional Details (Optional)</label>
+          <textarea
+            id="reportDetails"
+            class="form-textarea"
+            placeholder="Provide additional details about the issue..."
+          ></textarea>
+        </div>
+        <div class="modal-actions">
+          <button
+            class="btn-modal btn-modal-secondary"
+            onclick="closeModal('reportModal')"
+          >
+            Cancel
+          </button>
+          <button
+            class="btn-modal btn-modal-danger"
+            id="submitReportBtn"
+            disabled
+          >
+            Submit Report
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      // import { initApp } from "./js/main.js";
+
+      // initApp();
+
+      // Modal functionality
+      function openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.classList.add("active");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.classList.remove("active");
+        document.body.style.overflow = "";
+      }
+
+      window.openModal = openModal;
+      window.closeModal = closeModal;
+
+      // Initialize functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        // Close modal when clicking outside
+        document.addEventListener("click", function (event) {
+          if (event.target.classList.contains("modal-overlay")) {
+            const modalId = event.target.getAttribute("id");
+            closeModal(modalId);
+          }
+        });
+
+        // Handle escape key to close modals
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "Escape") {
+            const activeModal = document.querySelector(".modal-overlay.active");
+            if (activeModal) {
+              closeModal(activeModal.getAttribute("id"));
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
