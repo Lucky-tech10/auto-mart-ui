@@ -1,7 +1,7 @@
 // header.js
 class DynamicHeader {
   constructor() {
-    this.isLoggedIn = false;
+    this.isLoggedIn = true;
     this.currentUser = null;
 
     this.init();
@@ -60,6 +60,7 @@ class DynamicHeader {
       const menuToggle = e.target.closest("#menuToggle");
       const userProfile = e.target.closest("#userProfile");
       const dropdownMenu = e.target.closest(".dropdown-menu");
+      const clickedAvatarOrInfo = e.target.closest(".user-data");
 
       if (menuToggle) {
         e.preventDefault();
@@ -68,7 +69,7 @@ class DynamicHeader {
         return;
       }
 
-      if (userProfile) {
+      if (userProfile && clickedAvatarOrInfo) {
         e.preventDefault();
         e.stopPropagation();
         this.toggleUserDropdown();
@@ -77,7 +78,7 @@ class DynamicHeader {
 
       // Close dropdowns when clicking outside
       if (!dropdownMenu && !userProfile) {
-        this.closeUserDropdown(); // Only close dropdown, not mobile menu
+        this.closeAllDropdowns();
       }
     };
 
@@ -197,17 +198,18 @@ class DynamicHeader {
     return `
       <div class="nav-container">
         <nav class="nav-links" id="navLinks">
-          <a href="" class="tab">Car Listings</a>
+          <a href="/index.html" class="tab">Car Listings</a>
           <a href="/create-listing.html" class="tab">Create Listing</a>
          
           <div class="user-profile" id="userProfile">
-            <div class="user-avatar">U</div>
-            <div class="user-info">
-              <span class="user-name">User</span>
-              <span class="user-role">Member</span>
+            <div class="user-data">
+              <div class="user-avatar">U</div>
+              <div class="user-info">
+                <span class="user-name">User</span>
+                <span class="user-role">Member</span>
+              </div>
             </div>
             <div class="dropdown-menu" id="dropdownMenu">
-              
               <a href="/reset-password.html" class="dropdown-item">
                 <span>⚙️</span>
                 Reset Password
