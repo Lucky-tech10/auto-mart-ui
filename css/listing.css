@@ -36,8 +36,16 @@ body {
 
 .listings-table {
   width: 100%;
-  min-width: 800px;
+  /* min-width: 800px; */
   border-collapse: collapse;
+}
+
+.user-listings-table {
+  min-width: 600px;
+}
+
+.admin-listings-table {
+  min-width: 800px;
 }
 
 .listings-table th {
@@ -283,5 +291,73 @@ body {
   .modal {
     padding: 24px;
     margin: 20px;
+  }
+}
+
+/* MY LISTINGS */
+
+.edit-form {
+  display: none;
+  gap: 12px;
+  align-items: center;
+}
+
+.edit-form.active {
+  display: flex;
+}
+
+.edit-input {
+  padding: 8px 12px;
+  border: 2px solid #ededed;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #141414;
+  background: white;
+  transition: border-color 0.2s ease;
+  font-family: inherit;
+}
+
+.edit-input:focus {
+  outline: none;
+  border-color: #c5d9eb;
+}
+
+.edit-select {
+  padding: 8px 12px;
+  border: 2px solid #ededed;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  background: white;
+  color: #141414;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.edit-select:focus {
+  outline: none;
+  border-color: #c5d9eb;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+@media (max-width: 768px) {
+  .edit-form {
+    gap: 8px;
+  }
+
+  .edit-input,
+  .edit-select {
+    font-size: 13px;
+    padding: 6px 8px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    gap: 4px;
   }
 }
