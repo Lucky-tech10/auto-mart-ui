@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;700;800"
+    />
+    <title>AutoMart - Create Car Ad</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/add-car.css" />
+  </head>
+  <body>
+    <main class="main-content">
+      <h1 class="page-title">Create Car Ad</h1>
+      <p class="page-subtitle">
+        List your vehicle and reach thousands of potential buyers
+      </p>
+
+      <form
+        class="form-container"
+        id="carForm"
+        enctype="multipart/form-data"
+        onsubmit="event.preventDefault(); alert('Ad submitted')"
+      >
+        <!-- Car Details Section -->
+        <div class="form-section">
+          <h2 class="section-title">🚗 Tell us about your car</h2>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label required">Make</label>
+              <select class="form-select" id="make" name="make" required>
+                <option value="">Select make</option>
+                <option value="toyota">Toyota</option>
+                <option value="honda">Honda</option>
+                <option value="ford">Ford</option>
+                <option value="chevrolet">Chevrolet</option>
+                <option value="bmw">BMW</option>
+                <option value="mercedes">Mercedes-Benz</option>
+                <option value="audi">Audi</option>
+                <option value="lexus">Lexus</option>
+                <option value="nissan">Nissan</option>
+                <option value="hyundai">Hyundai</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label required">Model</label>
+              <input
+                type="text"
+                class="form-input"
+                id="model"
+                name="model"
+                placeholder="Enter model"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label required">Condition</label>
+              <select
+                class="form-select"
+                id="condition"
+                name="condition"
+                required
+              >
+                <option value="">Select condition</option>
+                <option value="new">New</option>
+                <option value="used">Used</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label required">Body Type</label>
+              <select
+                class="form-select"
+                id="bodyType"
+                name="bodyType"
+                required
+              >
+                <option value="">Select body type</option>
+                <option value="sedan">Sedan</option>
+                <option value="suv">SUV</option>
+                <option value="hatchback">Hatchback</option>
+                <option value="coupe">Coupe</option>
+                <option value="convertible">Convertible</option>
+                <option value="wagon">Wagon</option>
+                <option value="pickup">Pickup Truck</option>
+                <option value="minivan">Minivan</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label required">Price (₦)</label>
+              <input
+                type="number"
+                class="form-input"
+                id="price"
+                name="price"
+                placeholder="Enter price"
+                min="0"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label required">Location</label>
+              <input
+                type="text"
+                class="form-input"
+                id="location"
+                name="location"
+                placeholder="City, State"
+                required
+              />
+            </div>
+          </div>
+          <div class="form-group full-width">
+            <label class="form-label">Description</label>
+            <textarea
+              class="form-textarea"
+              id="description"
+              name="description"
+              placeholder="Describe your car's features, condition, and any additional information..."
+            ></textarea>
+          </div>
+        </div>
+
+        <!-- Photos Section -->
+        <div class="form-section">
+          <h2 class="section-title">📸 Add Photos</h2>
+
+          <div class="photo-upload-area" id="photoUploadArea">
+            <div class="upload-icon">📷</div>
+            <div class="upload-text">Drag and drop or browse</div>
+            <div class="upload-subtitle">
+              Add at least one photo to your listing. You can add up to 10
+              photos.
+            </div>
+            <button type="button" class="browse-btn">Browse files</button>
+            <!-- required will be removed during functionality -->
+            <input
+              type="file"
+              id="photoInput"
+              class="file-input"
+              multiple
+              accept="image/*"
+              name="photos"
+              required
+            />
+          </div>
+        </div>
+
+        <!-- Submit Section -->
+        <div class="form-section">
+          <div class="submit-section">
+            <button type="submit" class="submit-btn" id="submitBtn">
+              <div class="loading-spinner"></div>
+              🚀 Publish Your Car Ad
+            </button>
+            <div class="submit-info">
+              Your ad will be reviewed and published
+            </div>
+          </div>
+        </div>
+      </form>
+    </main>
+
+    <script type="module">
+      import { initApp } from "./js/main.js";
+
+      initApp();
+
+      const input = document.getElementById("photoInput");
+      const button = document.querySelector(".browse-btn");
+
+      // When button is clicked, trigger the file input
+      button.addEventListener("click", () => input.click());
+    </script>
+  </body>
+</html>
