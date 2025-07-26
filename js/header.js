@@ -2,7 +2,7 @@
 class DynamicHeader {
   constructor() {
     this.isLoggedIn = true;
-    this.currentUser = null;
+    // this.currentUser = null;
 
     this.init();
   }
@@ -221,7 +221,7 @@ class DynamicHeader {
               ${
                 isAdmin
                   ? `
-                <a href="/admin/all-cars.html" class="dropdown-item admin-only">
+                <a href="/admin-dashboard.html" class="dropdown-item admin-only">
                   <span>🔧</span>
                   View All Cars
                 </a>

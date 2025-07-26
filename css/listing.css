@@ -1,0 +1,287 @@
+body {
+  padding: 80px 20px 40px;
+}
+
+.main-content {
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+.page-header {
+  text-align: start;
+  margin-bottom: 32px;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #141414;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.page-subtitle {
+  font-size: 16px;
+  color: #666;
+  font-weight: 500;
+}
+
+.table-container {
+  background: white;
+  border: 1px solid #ededed;
+  border-radius: 12px;
+  overflow-x: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.listings-table {
+  width: 100%;
+  min-width: 800px;
+  border-collapse: collapse;
+}
+
+.listings-table th {
+  background: #f8f9fa;
+  padding: 16px 20px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 14px;
+  color: #141414;
+  border-bottom: 1px solid #ededed;
+  letter-spacing: -0.01em;
+}
+
+.listings-table td {
+  padding: 20px;
+  border-bottom: 1px solid #ededed;
+  vertical-align: middle;
+}
+
+.listings-table tr:hover {
+  background: #fafafa;
+}
+
+.car-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.car-image {
+  width: 80px;
+  height: 60px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid #ededed;
+}
+
+.car-details h4 {
+  font-weight: 700;
+  color: #141414;
+  margin-bottom: 4px;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+}
+
+.owner-info h5 {
+  font-weight: 600;
+  color: #141414;
+  margin-bottom: 4px;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+}
+
+.owner-info p {
+  color: #666;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.price-display {
+  font-size: 18px;
+  font-weight: 700;
+  color: #141414;
+}
+
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-available {
+  background: #f0fff4;
+  color: #276749;
+  border: 1px solid #9ae6b4;
+}
+
+.status-sold {
+  background: #fff5f5;
+  color: #c53030;
+  border: 1px solid #fed7d7;
+}
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  letter-spacing: -0.01em;
+}
+
+.btn-primary {
+  background: #c5d9eb;
+  color: #111518;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-danger {
+  background: #fed7d7;
+  color: #c53030;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.btn-danger:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: #f8f9fa;
+  color: #666;
+  border: 1px solid #ededed;
+}
+
+.btn-secondary:hover {
+  background: #f1f3f4;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 80px 40px;
+  color: #666;
+}
+
+.empty-state h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #141414;
+}
+
+.empty-state p {
+  font-size: 14px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.modal {
+  background: white;
+  border: 1px solid #ededed;
+  border-radius: 12px;
+  padding: 32px;
+  max-width: 480px;
+  width: 90%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.modal h3 {
+  color: #c53030;
+  margin-bottom: 12px;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.modal p {
+  color: #666;
+  margin-bottom: 24px;
+  line-height: 1.5;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 80px 16px 20px;
+  }
+
+  .page-title {
+    font-size: 20px;
+  }
+
+  .page-subtitle {
+    font-size: 14px;
+  }
+
+  .car-info {
+    flex-direction: row;
+    gap: 12px;
+  }
+
+  .car-image {
+    width: 60px;
+    height: 45px;
+  }
+
+  .car-details h4 {
+    font-size: 14px;
+  }
+
+  .owner-info h5 {
+    font-size: 13px;
+  }
+
+  .owner-info p {
+    font-size: 12px;
+  }
+
+  .price-display {
+    font-size: 16px;
+  }
+
+  .btn {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  .listings-table th,
+  .listings-table td {
+    padding: 12px 8px;
+  }
+
+  .modal {
+    padding: 24px;
+    margin: 20px;
+  }
+}
