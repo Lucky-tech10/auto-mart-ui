@@ -199,7 +199,7 @@ class DynamicHeader {
       <div class="nav-container">
         <nav class="nav-links" id="navLinks">
           <a href="/index.html" class="tab">Car Listings</a>
-          <a href="/create-listing.html" class="tab">Create Listing</a>
+          <a href="/add/car.html" class="tab">Create Listing</a>
          
           <div class="user-profile" id="userProfile">
             <div class="user-data">
