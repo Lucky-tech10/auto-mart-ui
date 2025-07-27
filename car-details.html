@@ -88,10 +88,18 @@
           <div class="seller-name">Member</div>
 
           <div class="action-buttons">
-            <button class="btn btn-secondary" onclick="openModal('offerModal')">
+            <button
+              class="btn btn-secondary"
+              id="offerBtn"
+              onclick="openModal('offerModal')"
+            >
               💰 Make Offer
             </button>
-            <button class="btn btn-danger" onclick="openModal('reportModal')">
+            <button
+              class="btn btn-danger"
+              id="reportBtn"
+              onclick="openModal('reportModal')"
+            >
               🚩 Report Listing
             </button>
           </div>
@@ -103,27 +111,36 @@
     <div class="modal-overlay" id="offerModal">
       <div class="modal">
         <div class="modal-header">
-          <h3 class="modal-title">Make an Offer</h3>
+          <h3 class="modal-title" id="offerModalTitle">Make an Offer</h3>
           <button class="modal-close" onclick="closeModal('offerModal')">
             ×
           </button>
         </div>
         <div class="success-message" id="offerSuccess">
           <strong>Offer Submitted!</strong> Your offer has been sent to the
-          seller. You'll receive a response within 24 hours.
+          seller.
+        </div>
+        <div class="success-message" id="offerUpdateSuccess">
+          <strong>Offer Updated!</strong> Your updated offer has been sent to
+          the seller.
         </div>
         <div class="offer-info">
           <div class="offer-info-title">Current Asking Price</div>
-          <div class="current-offer">₦2,850,000</div>
+          <div class="current-offer">₦8,000,000</div>
+        </div>
+        <div class="offer-info" id="currentOfferInfo" style="display: none">
+          <div class="offer-info-title">Your Current Offer</div>
+          <div class="current-user-offer" id="currentUserOffer">₦0</div>
         </div>
         <div class="form-group">
-          <label class="form-label">Your Offer Amount</label>
+          <label class="form-label" id="offerAmountLabel"
+            >Your Offer Amount</label
+          >
           <input
             type="number"
             id="offerAmount"
             class="form-input"
             placeholder="Enter your offer amount"
-            min="1000000"
             required
           />
         </div>
@@ -134,7 +151,11 @@
           >
             Cancel
           </button>
-          <button class="btn-modal btn-modal-primary" disabled>
+          <button
+            class="btn-modal btn-modal-primary"
+            id="submitOfferBtn"
+            disabled
+          >
             Submit Offer
           </button>
         </div>
@@ -219,30 +240,27 @@
         </div>
       </div>
     </div>
-
     <script type="module">
       import { initApp } from "./js/main.js";
 
       initApp();
+    </script>
+    <script>
+      // User state management
+      let userState = {
+        hasOffer: false,
+        currentOffer: 0,
+        hasReported: false,
+      };
 
-      // Modal functionality
-      function openModal(modalId) {
-        const modal = document.getElementById(modalId);
-        modal.classList.add("active");
-        document.body.style.overflow = "hidden";
-      }
-
-      function closeModal(modalId) {
-        const modal = document.getElementById(modalId);
-        modal.classList.remove("active");
-        document.body.style.overflow = "";
-      }
-
-      window.openModal = openModal;
-      window.closeModal = closeModal;
-
-      // Initialize functionality
+      // Initialize app on page load
       document.addEventListener("DOMContentLoaded", function () {
+        initializeApp();
+        updateUIBasedOnUserState();
+      });
+
+      // Initialize main app functionality
+      function initializeApp() {
         // Close modal when clicking outside
         document.addEventListener("click", function (event) {
           if (event.target.classList.contains("modal-overlay")) {
@@ -260,7 +278,81 @@
             }
           }
         });
-      });
+      }
+
+      // Update UI based on current user state
+      function updateUIBasedOnUserState() {
+        const offerBtn = document.getElementById("offerBtn");
+        const reportBtn = document.getElementById("reportBtn");
+
+        // Update offer button
+        if (userState.hasOffer) {
+          offerBtn.innerHTML = "💰 Update Offer";
+          offerBtn.setAttribute("data-has-offer", "true");
+        } else {
+          offerBtn.innerHTML = "💰 Make Offer";
+          offerBtn.removeAttribute("data-has-offer");
+        }
+
+        // Hide report button if user has already reported
+        if (userState.hasReported) {
+          reportBtn.classList.add("hidden");
+        } else {
+          reportBtn.classList.remove("hidden");
+        }
+      }
+
+      // Open modal functionality
+      function openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.classList.add("active");
+        document.body.style.overflow = "hidden";
+
+        // Configure modal based on user state
+        if (modalId === "offerModal") {
+          configureOfferModal();
+        }
+      }
+
+      // Close modal functionality
+      function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.classList.remove("active");
+        document.body.style.overflow = "";
+      }
+
+      // Configure offer modal based on user state
+      function configureOfferModal() {
+        const modalTitle = document.getElementById("offerModalTitle");
+        const offerAmountLabel = document.getElementById("offerAmountLabel");
+        const submitOfferBtn = document.getElementById("submitOfferBtn");
+        const currentOfferInfo = document.getElementById("currentOfferInfo");
+        const currentUserOffer = document.getElementById("currentUserOffer");
+        const offerAmount = document.getElementById("offerAmount");
+
+        if (userState.hasOffer) {
+          // Update modal for existing offer
+          modalTitle.textContent = "Update Your Offer";
+          offerAmountLabel.textContent = "New Offer Amount";
+          submitOfferBtn.textContent = "Update Offer";
+
+          // Show current offer
+          currentOfferInfo.style.display = "block";
+          currentUserOffer.textContent = `₦${userState.currentOffer.toLocaleString()}`;
+
+          // Pre-fill with current offer
+          offerAmount.value = userState.currentOffer;
+          submitOfferBtn.disabled = false;
+        } else {
+          // Reset to default state
+          modalTitle.textContent = "Make an Offer";
+          offerAmountLabel.textContent = "Your Offer Amount";
+          submitOfferBtn.textContent = "Submit Offer";
+          currentOfferInfo.style.display = "none";
+          offerAmount.value = "";
+          submitOfferBtn.disabled = true;
+        }
+      }
     </script>
   </body>
 </html>

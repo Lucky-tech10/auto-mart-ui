@@ -413,6 +413,11 @@ body .head-container {
 
 /* CAR DETAILS */
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 /* Breadcrumb */
 .breadcrumb {
   background: white;
@@ -479,12 +484,10 @@ body .head-container {
   justify-content: center;
   color: #999;
   font-size: 18px;
-  /* cursor: pointer; */
   transition: background 0.2s ease;
 }
 
 .car-imaged {
-  /* flex: 1 1 70%; */
   width: 100%;
   height: 400px;
   position: relative;
@@ -694,6 +697,11 @@ body .head-container {
   transform: translateY(-1px);
 }
 
+/* Hide button when user has already reported */
+.btn.hidden {
+  display: none;
+}
+
 /* Modal Styles */
 .modal-overlay {
   position: fixed;
@@ -814,6 +822,12 @@ body .head-container {
   font-size: 18px;
   font-weight: 700;
   color: #0369a1;
+}
+
+.current-user-offer {
+  font-size: 18px;
+  font-weight: 700;
+  color: #059669;
 }
 
 .report-reasons {
