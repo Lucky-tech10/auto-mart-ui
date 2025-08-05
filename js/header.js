@@ -210,9 +210,9 @@ class DynamicHeader {
               </div>
             </div>
             <div class="dropdown-menu" id="dropdownMenu">
-              <a href="/reset-password.html" class="dropdown-item">
+              <a href="/update-password.html" class="dropdown-item">
                 <span>⚙️</span>
-                Reset Password
+                Update Password
               </a>
               <a href="/my-listings.html" class="dropdown-item">
                 <span>🚗</span>
