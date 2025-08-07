@@ -85,30 +85,6 @@ body {
   font-weight: 400;
 }
 
-.error-message {
-  background: #fff5f5;
-  border: 1px solid #fed7d7;
-  border-radius: 8px;
-  padding: 12px 16px;
-  margin-bottom: 20px;
-  color: #c53030;
-  font-size: 14px;
-  font-weight: 500;
-  display: none;
-}
-
-.success-message {
-  background: #f0fff4;
-  border: 1px solid #9ae6b4;
-  border-radius: 8px;
-  padding: 12px 16px;
-  margin-bottom: 20px;
-  color: #276749;
-  font-size: 14px;
-  font-weight: 500;
-  display: none;
-}
-
 .reset-button {
   width: 100%;
   padding: 12px 16px;
