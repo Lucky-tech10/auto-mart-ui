@@ -64,7 +64,7 @@
 
             <div class="filter-group">
               <label class="filter-label">Condition</label>
-              <select class="filter-select" id="conditionFilter">
+              <select class="filter-select" id="stateFilter">
                 <option value="">All Conditions</option>
                 <option value="new">New</option>
                 <option value="used">Used</option>
@@ -76,21 +76,21 @@
                 <label class="label">
                   <span class="label-text">Price Range</span>
                   <span class="price-display" id="selectedPriceDisplay"
-                    >₦5,000,000</span
+                    >₦100,000,000</span
                   >
                 </label>
                 <input
                   type="range"
                   id="priceRange"
                   min="0"
-                  max="10000000"
-                  value="10000000"
-                  step="100000"
+                  max="100000000"
+                  value="100000000"
+                  step="1000000"
                   class="range"
                 />
                 <div class="range-labels">
                   <span class="range-label">0</span>
-                  <span class="range-label">Max: ₦10,000,000</span>
+                  <span class="range-label">Max: ₦100,000,000</span>
                 </div>
               </div>
             </div>
@@ -106,81 +106,17 @@
           </div>
         </section>
 
-        <!-- Results Header -->
         <div class="results-header">
           <div class="results-count" id="resultsCount">
-            Showing 24 of 1,247 vehicles
           </div>
         </div>
 
-        <!-- Car Cards Grid -->
         <div class="cars-grid" id="carsGrid">
-          <a href="/car-details.html">
-            <div class="car-card">
-              <div class="car-image">
-                  <div class="car-badge">New</div>
-                  <img src="/images/studio-sedan.png" alt="">
-              </div>
-              <div class="car-info">
-                  <h3 class="car-title">2023 Toyota Camry</h3>
-
-                  <div class="car-price">₦8,000,000</div>
-                  <div class="car-location">📍 Lagos</div>
-                  
-              </div>
-            </div>
-          </a>
-          <div class="car-card">
-            <div class="car-image">
-                <div class="car-badge used">Used</div>
-                <img src="/images/electric.png" alt="">
-            </div>
-            <div class="car-info">
-                <h3 class="car-title">2025 Bmw X3</h3>
-
-                <div class="car-price">₦10,000,000</div>
-                <div class="car-location">📍 Delta, Nigeria</div>
-                
-            </div>
-          </div>
-          <div class="car-card">
-            <div class="car-image">
-                <div class="car-badge used">Used</div>
-                <img src="/images/hybrid.png" alt="">
-            </div>
-            <div class="car-info">
-                <h3 class="car-title">2021 Tesla</h3>
-
-                <div class="car-price">₦6,000,000</div>
-                <div class="car-location">📍 Abuja, Nigeria</div>
-                
-            </div>
-          </div>
-          <div class="car-card">
-            <div class="car-image">
-                <div class="car-badge">New</div>
-                <img src="/images/sedan.png" alt="">
-            </div>
-            <div class="car-info">
-                <h3 class="car-title">2024 honda CR-V</h3>
-
-                <div class="car-price">₦3,000,000</div>
-                <div class="car-location">📍 Rivers, Nigeria</div>
-                
-            </div>
-          </div>
         </div>
 
         <!-- Pagination -->
         <div class="pagination" id="pagination">
-          <button class="pagination-btn" disabled 
-                  >
-              ‹
-          </button>
-          <button class="pagination-btn active">1</button>
-          <span class="pagination-dots">...</span>
-          <button class="pagination-btn">10</button>
-          <button class="pagination-btn" disabled>›</button>
+          
         </div>
       </main>
     </div>
@@ -193,5 +129,6 @@
 
     
     </script>
+    <script type="module" src="/js/pages/index.js"></script>
   </body>
 </html>

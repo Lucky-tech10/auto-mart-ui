@@ -1,22 +1,39 @@
-// header.js
+import * as auth from "./services/auth.js";
+
 class DynamicHeader {
   constructor() {
-    this.isLoggedIn = true;
-    // this.currentUser = null;
-
+    this.isInitialized = false;
+    this.documentClickHandler = null;
+    this.resizeHandler = null;
+    this.scrollHandler = null;
+    this.currentAuthState = null;
     this.init();
   }
 
   init() {
+    if (this.isInitialized) {
+      return;
+    }
+
     this.createHeaderHTML();
+    this.currentAuthState = auth.isLoggedIn();
     this.renderHeader();
-    // Setup event listeners AFTER rendering
     this.setupEventListeners();
     this.setupScrollEffects();
+    this.isInitialized = true;
+  }
+
+  // Check if auth state changed and re-render if needed
+  checkAuthStateAndUpdate() {
+    const newAuthState = auth.isLoggedIn();
+    if (this.currentAuthState !== newAuthState) {
+      this.currentAuthState = newAuthState;
+      this.renderHeader();
+    }
   }
 
   createHeaderHTML() {
-    // if header already exists
+    // Prevent duplicate header creation
     if (document.querySelector(".header")) {
       return;
     }
@@ -50,52 +67,66 @@ class DynamicHeader {
   }
 
   setupEventListeners() {
-    // Remove any existing listeners to prevent duplicates
+    // Remove existing listeners to prevent duplicates
+    this.removeEventListeners();
+
+    // Create bound handlers for easier removal
+    this.documentClickHandler = this.handleDocumentClick.bind(this);
+    this.resizeHandler = this.handleWindowResize.bind(this);
+
+    document.addEventListener("click", this.documentClickHandler);
+    window.addEventListener("resize", this.resizeHandler);
+  }
+
+  removeEventListeners() {
     if (this.documentClickHandler) {
       document.removeEventListener("click", this.documentClickHandler);
     }
-
-    // Create bound handler for easier removal
-    this.documentClickHandler = (e) => {
-      const menuToggle = e.target.closest("#menuToggle");
-      const userProfile = e.target.closest("#userProfile");
-      const dropdownMenu = e.target.closest(".dropdown-menu");
-      const clickedAvatarOrInfo = e.target.closest(".user-data");
-
-      if (menuToggle) {
-        e.preventDefault();
-        e.stopPropagation();
-        this.toggleMobileMenu();
-        return;
-      }
-
-      if (userProfile && clickedAvatarOrInfo) {
-        e.preventDefault();
-        e.stopPropagation();
-        this.toggleUserDropdown();
-        return;
-      }
-
-      // Close dropdowns when clicking outside
-      if (!dropdownMenu && !userProfile) {
-        this.closeAllDropdowns();
-      }
-    };
-
-    document.addEventListener("click", this.documentClickHandler);
-
-    // Window resize handler
     if (this.resizeHandler) {
       window.removeEventListener("resize", this.resizeHandler);
     }
+    if (this.scrollHandler) {
+      window.removeEventListener("scroll", this.scrollHandler);
+    }
+  }
 
-    this.resizeHandler = () => {
-      if (window.innerWidth > 768) {
-        this.closeMobileMenu();
-      }
-    };
+  handleDocumentClick(e) {
+    const menuToggle = e.target.closest("#menuToggle");
+    const userProfile = e.target.closest("#userProfile");
+    const dropdownMenu = e.target.closest(".dropdown-menu");
+    const clickedAvatarOrInfo = e.target.closest(".user-data");
+    const logoutButton = e.target.closest("#logoutButton");
 
-    window.addEventListener("resize", this.resizeHandler);
+    if (logoutButton) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.handleLogout();
+      return;
+    }
+
+    if (menuToggle) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.toggleMobileMenu();
+      return;
+    }
+
+    if (userProfile && clickedAvatarOrInfo) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.toggleUserDropdown();
+      return;
+    }
+
+    if (!dropdownMenu && !userProfile) {
+      this.closeAllDropdowns();
+    }
+  }
+
+  handleWindowResize() {
+    if (window.innerWidth > 768) {
+      this.closeMobileMenu();
+    }
   }
 
   setupScrollEffects() {
@@ -120,8 +151,13 @@ class DynamicHeader {
     window.addEventListener("scroll", this.scrollHandler);
   }
 
+  handleLogout() {
+    if (confirm("Are you sure you want to logout?")) {
+      auth.logout();
+    }
+  }
+
   toggleMobileMenu() {
-    // console.log("toggleMobileMenu called");
     const navLinks = document.getElementById("navLinks");
     const menuToggle = document.getElementById("menuToggle");
 
@@ -131,12 +167,9 @@ class DynamicHeader {
       navLinks.classList.toggle("active");
       menuToggle.classList.toggle("active");
 
-      // If opening mobile menu, ensure dropdown is closed
       if (isOpening) {
         this.closeUserDropdown();
       }
-    } else {
-      console.log("Could not find navLinks or menuToggle elements");
     }
   }
 
@@ -147,7 +180,6 @@ class DynamicHeader {
     if (navLinks && menuToggle) {
       navLinks.classList.remove("active");
       menuToggle.classList.remove("active");
-      // Also close dropdown when mobile menu closes
       this.closeUserDropdown();
     }
   }
@@ -156,15 +188,7 @@ class DynamicHeader {
     const dropdownMenu = document.getElementById("dropdownMenu");
 
     if (dropdownMenu) {
-      const isActive = dropdownMenu.classList.contains("active");
-
-      if (isActive) {
-        dropdownMenu.classList.remove("active");
-      } else {
-        dropdownMenu.classList.add("active");
-      }
-    } else {
-      console.log("Could not find dropdownMenu element");
+      dropdownMenu.classList.toggle("active");
     }
   }
 
@@ -193,7 +217,13 @@ class DynamicHeader {
   }
 
   getNavigationContainer() {
-    const isAdmin = true;
+    const user = auth.getCurrentUser();
+    const isAdmin = auth.isAdmin();
+
+    const userName = user ? `${user.first_name} ${user.last_name}` : "User";
+    const userInitials = user
+      ? `${user.first_name.charAt(0)}${user.last_name.charAt(0)}`.toUpperCase()
+      : "U";
 
     return `
       <div class="nav-container">
@@ -203,10 +233,10 @@ class DynamicHeader {
          
           <div class="user-profile" id="userProfile">
             <div class="user-data">
-              <div class="user-avatar">U</div>
+              <div class="user-avatar">${userInitials}</div>
               <div class="user-info">
-                <span class="user-name">User</span>
-                <span class="user-role">Member</span>
+                <span class="user-name">${userName}</span>
+                <span class="user-role">${isAdmin ? "Admin" : "Member"}</span>
               </div>
             </div>
             <div class="dropdown-menu" id="dropdownMenu">
@@ -249,7 +279,7 @@ class DynamicHeader {
     const headerContent = document.querySelector(".nav-content");
     if (!headerContent) return;
 
-    // Clear existing auth/nav content
+    // Clear existing auth/nav
     const existingAuth = headerContent.querySelector(".auth-buttons");
     const existingNav = headerContent.querySelector(".nav-container");
 
@@ -257,7 +287,7 @@ class DynamicHeader {
     if (existingNav) existingNav.remove();
 
     // Add appropriate content based on auth status
-    const contentHTML = this.isLoggedIn
+    const contentHTML = auth.isLoggedIn()
       ? this.getNavigationContainer()
       : this.getAuthButtons();
 
@@ -266,23 +296,8 @@ class DynamicHeader {
 
   // Cleanup method for removing event listeners
   destroy() {
-    if (this.documentClickHandler) {
-      document.removeEventListener("click", this.documentClickHandler);
-    }
-    if (this.resizeHandler) {
-      window.removeEventListener("resize", this.resizeHandler);
-    }
-    if (this.scrollHandler) {
-      window.removeEventListener("scroll", this.scrollHandler);
-    }
-  }
-
-  showError(message) {
-    alert(message);
-  }
-
-  showSuccess(message) {
-    alert(message);
+    this.removeEventListeners();
+    this.isInitialized = false;
   }
 }
 

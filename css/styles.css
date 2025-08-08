@@ -276,6 +276,7 @@ body .head-container {
 .car-title {
   font-size: 14px;
   font-weight: 600;
+  text-transform: capitalize;
   color: #141414;
   margin-bottom: 6px;
   line-height: 1.2;
@@ -450,6 +451,7 @@ a {
 
 .breadcrumb-item.current {
   color: #141414;
+  text-transform: capitalize;
   font-weight: 600;
 }
 
@@ -552,6 +554,7 @@ a {
 .car-titles {
   font-size: 32px;
   font-weight: 700;
+  text-transform: capitalize;
   color: #141414;
   margin-bottom: 8px;
 }
@@ -585,7 +588,7 @@ a {
 .quick-info-label {
   font-size: 12px;
   color: #666;
-  text-transform: uppercase;
+  text-transform: capitalize;
   letter-spacing: 0.5px;
   margin-bottom: 4px;
 }
@@ -593,6 +596,7 @@ a {
 .quick-info-value {
   font-size: 16px;
   font-weight: 600;
+  text-transform: capitalize;
   color: #141414;
 }
 
@@ -911,20 +915,6 @@ a {
 .btn-modal:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-}
-
-.success-message {
-  background: #f0fdf4;
-  border: 1px solid #bbf7d0;
-  color: #166534;
-  padding: 16px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  display: none;
-}
-
-.success-message.show {
-  display: block;
 }
 
 /* Mobile Styles */
