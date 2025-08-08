@@ -20,12 +20,7 @@
         List your vehicle and reach thousands of potential buyers
       </p>
 
-      <form
-        class="form-container"
-        id="carForm"
-        enctype="multipart/form-data"
-        onsubmit="event.preventDefault(); alert('Ad submitted')"
-      >
+      <form class="form-container" id="carForm" enctype="multipart/form-data">
         <!-- Car Details Section -->
         <div class="form-section">
           <h2 class="section-title">🚗 Tell us about your car</h2>
@@ -62,12 +57,7 @@
 
             <div class="form-group">
               <label class="form-label required">Condition</label>
-              <select
-                class="form-select"
-                id="condition"
-                name="condition"
-                required
-              >
+              <select class="form-select" id="state" name="state" required>
                 <option value="">Select condition</option>
                 <option value="new">New</option>
                 <option value="used">Used</option>
@@ -128,7 +118,6 @@
             ></textarea>
           </div>
         </div>
-
         <!-- Photos Section -->
         <div class="form-section">
           <h2 class="section-title">📸 Add Photos</h2>
@@ -140,8 +129,13 @@
               Add at least one photo to your listing. You can add up to 10
               photos.
             </div>
-            <button type="button" class="browse-btn">Browse files</button>
-            <!-- required will be removed during functionality -->
+            <button
+              type="button"
+              class="browse-btn"
+              onclick="document.getElementById('photoInput').click()"
+            >
+              Browse files
+            </button>
             <input
               type="file"
               id="photoInput"
@@ -149,18 +143,20 @@
               multiple
               accept="image/*"
               name="photos"
-              required
             />
+
+            <div class="upload-progress" id="uploadProgress">
+              <div class="progress-bar" id="progressBar"></div>
+            </div>
           </div>
+
+          <div class="photo-previews" id="photoPreviews"></div>
         </div>
 
         <!-- Submit Section -->
         <div class="form-section">
           <div class="submit-section">
-            <button type="submit" class="submit-btn" id="submitBtn">
-              <div class="loading-spinner"></div>
-              🚀 Publish Your Car Ad
-            </button>
+            <button type="submit" class="submit-btn" id="submitBtn"></button>
             <div class="submit-info">
               Your ad will be reviewed and published
             </div>
@@ -173,12 +169,7 @@
       import { initApp } from "./js/main.js";
 
       initApp();
-
-      const input = document.getElementById("photoInput");
-      const button = document.querySelector(".browse-btn");
-
-      // When button is clicked, trigger the file input
-      button.addEventListener("click", () => input.click());
     </script>
+    <script type="module" src="./js/pages/add-car.js"></script>
   </body>
 </html>

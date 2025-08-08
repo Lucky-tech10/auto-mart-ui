@@ -8,7 +8,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;700;800"
     />
-    <title>AutoMart - 2023 Toyota Camry Details</title>
+    <title>AutoMart - Car Details</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
     <link rel="stylesheet" href="css/header.css" />
     <link rel="stylesheet" href="css/styles.css" />
@@ -22,7 +22,7 @@
           <span class="breadcrumb-separator">›</span>
           <a href="/index.html" class="breadcrumb-item">Car Listings</a>
           <span class="breadcrumb-separator">›</span>
-          <span class="breadcrumb-item current">2023 Toyota Camry</span>
+          <span class="breadcrumb-item current">Car Details</span>
         </div>
       </div>
     </div>
@@ -33,49 +33,28 @@
         <!-- Car Gallery -->
         <div class="car-gallery">
           <div class="car-imaged">
-            <div class="car-badged used">Used</div>
-            <img src="/images/studio-sedan.png" alt="" />
+            <div class="car-badged used"></div>
+            <img alt="" />
           </div>
           <div class="gallery-controls">
             <button class="gallery-nav">‹</button>
-            <span id="galleryCounter">1 / 5</span>
+            <span id="galleryCounter"></span>
             <button class="gallery-nav">›</button>
           </div>
         </div>
 
         <!-- Car Information -->
         <div class="car-info-section">
-          <h2 class="car-titles">2023 Toyota Camry LE</h2>
-          <div class="car-prices">₦8,000,000</div>
+          <h2 class="car-titles"></h2>
+          <div class="car-prices"></div>
 
           <!-- Quick Info Grid -->
-          <div class="car-quick-info">
-            <div class="quick-info-item">
-              <div class="quick-info-icon">🏷️</div>
-              <div class="quick-info-label">Make</div>
-              <div class="quick-info-value">Toyota</div>
-            </div>
-
-            <div class="quick-info-item">
-              <div class="quick-info-icon">🚗</div>
-              <div class="quick-info-label">Body Type</div>
-              <div class="quick-info-value">Sedan</div>
-            </div>
-
-            <div class="quick-info-item">
-              <div class="quick-info-icon">📍</div>
-              <div class="quick-info-label">Location</div>
-              <div class="quick-info-value">Lagos</div>
-            </div>
-          </div>
+          <div class="car-quick-info"></div>
 
           <!-- Description -->
           <div class="car-description">
             <h3 class="section-title">Description</h3>
-            <p class="description-text">
-              This well-maintained 2023 Toyota Camry LE is in excellent
-              condition with only 25,000 km on the odometer. clean title.
-            </p>
+            <p class="description-text"></p>
           </div>
         </div>
       </div>
@@ -116,26 +95,16 @@
             ×
           </button>
         </div>
-        <div class="success-message" id="offerSuccess">
-          <strong>Offer Submitted!</strong> Your offer has been sent to the
-          seller.
-        </div>
-        <div class="success-message" id="offerUpdateSuccess">
-          <strong>Offer Updated!</strong> Your updated offer has been sent to
-          the seller.
-        </div>
         <div class="offer-info">
           <div class="offer-info-title">Current Asking Price</div>
-          <div class="current-offer">₦8,000,000</div>
+          <div class="current-offer" id="currentOffer"></div>
         </div>
         <div class="offer-info" id="currentOfferInfo" style="display: none">
           <div class="offer-info-title">Your Current Offer</div>
-          <div class="current-user-offer" id="currentUserOffer">₦0</div>
+          <div class="current-user-offer" id="currentUserOffer"></div>
         </div>
         <div class="form-group">
-          <label class="form-label" id="offerAmountLabel"
-            >Your Offer Amount</label
-          >
+          <label class="form-label" id="offerAmountLabel"></label>
           <input
             type="number"
             id="offerAmount"
@@ -171,10 +140,7 @@
             ×
           </button>
         </div>
-        <div class="success-message" id="reportSuccess">
-          <strong>Report Submitted!</strong> Thank you for helping us maintain
-          listing quality. We'll review this report within 24 hours.
-        </div>
+
         <div class="form-group">
           <label class="form-label">Reason for reporting</label>
           <div class="report-reasons" id="reportReasons">
@@ -245,114 +211,6 @@
 
       initApp();
     </script>
-    <script>
-      // User state management
-      let userState = {
-        hasOffer: false,
-        currentOffer: 0,
-        hasReported: false,
-      };
-
-      // Initialize app on page load
-      document.addEventListener("DOMContentLoaded", function () {
-        initializeApp();
-        updateUIBasedOnUserState();
-      });
-
-      // Initialize main app functionality
-      function initializeApp() {
-        // Close modal when clicking outside
-        document.addEventListener("click", function (event) {
-          if (event.target.classList.contains("modal-overlay")) {
-            const modalId = event.target.getAttribute("id");
-            closeModal(modalId);
-          }
-        });
-
-        // Handle escape key to close modals
-        document.addEventListener("keydown", function (event) {
-          if (event.key === "Escape") {
-            const activeModal = document.querySelector(".modal-overlay.active");
-            if (activeModal) {
-              closeModal(activeModal.getAttribute("id"));
-            }
-          }
-        });
-      }
-
-      // Update UI based on current user state
-      function updateUIBasedOnUserState() {
-        const offerBtn = document.getElementById("offerBtn");
-        const reportBtn = document.getElementById("reportBtn");
-
-        // Update offer button
-        if (userState.hasOffer) {
-          offerBtn.innerHTML = "💰 Update Offer";
-          offerBtn.setAttribute("data-has-offer", "true");
-        } else {
-          offerBtn.innerHTML = "💰 Make Offer";
-          offerBtn.removeAttribute("data-has-offer");
-        }
-
-        // Hide report button if user has already reported
-        if (userState.hasReported) {
-          reportBtn.classList.add("hidden");
-        } else {
-          reportBtn.classList.remove("hidden");
-        }
-      }
-
-      // Open modal functionality
-      function openModal(modalId) {
-        const modal = document.getElementById(modalId);
-        modal.classList.add("active");
-        document.body.style.overflow = "hidden";
-
-        // Configure modal based on user state
-        if (modalId === "offerModal") {
-          configureOfferModal();
-        }
-      }
-
-      // Close modal functionality
-      function closeModal(modalId) {
-        const modal = document.getElementById(modalId);
-        modal.classList.remove("active");
-        document.body.style.overflow = "";
-      }
-
-      // Configure offer modal based on user state
-      function configureOfferModal() {
-        const modalTitle = document.getElementById("offerModalTitle");
-        const offerAmountLabel = document.getElementById("offerAmountLabel");
-        const submitOfferBtn = document.getElementById("submitOfferBtn");
-        const currentOfferInfo = document.getElementById("currentOfferInfo");
-        const currentUserOffer = document.getElementById("currentUserOffer");
-        const offerAmount = document.getElementById("offerAmount");
-
-        if (userState.hasOffer) {
-          // Update modal for existing offer
-          modalTitle.textContent = "Update Your Offer";
-          offerAmountLabel.textContent = "New Offer Amount";
-          submitOfferBtn.textContent = "Update Offer";
-
-          // Show current offer
-          currentOfferInfo.style.display = "block";
-          currentUserOffer.textContent = `₦${userState.currentOffer.toLocaleString()}`;
-
-          // Pre-fill with current offer
-          offerAmount.value = userState.currentOffer;
-          submitOfferBtn.disabled = false;
-        } else {
-          // Reset to default state
-          modalTitle.textContent = "Make an Offer";
-          offerAmountLabel.textContent = "Your Offer Amount";
-          submitOfferBtn.textContent = "Submit Offer";
-          currentOfferInfo.style.display = "none";
-          offerAmount.value = "";
-          submitOfferBtn.disabled = true;
-        }
-      }
-    </script>
+    <script type="module" src="./js/pages/car-details.js"></script>
   </body>
 </html>
