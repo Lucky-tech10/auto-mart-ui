@@ -44,7 +44,6 @@ async function handleResetSubmit(e) {
   }
 
   setLoading(true);
-  clearErrors();
 
   try {
     const result = await auth.resetPassword(token, email, newPassword);

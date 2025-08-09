@@ -48,7 +48,7 @@ export async function register(userData) {
 
     return { success: true, user: currentUser };
   } catch (error) {
-    return { success: false, error: error.msg };
+    return { success: false, error };
   }
 }
 

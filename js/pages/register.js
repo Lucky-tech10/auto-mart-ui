@@ -56,7 +56,6 @@ async function handleSubmit(e) {
   }
 
   setLoading(true);
-  clearErrors();
 
   try {
     const result = await auth.register(userData);

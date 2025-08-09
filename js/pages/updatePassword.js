@@ -44,7 +44,6 @@ async function handleUpdateSubmit(e) {
   }
 
   setLoading(true);
-  clearErrors();
 
   try {
     const result = await auth.updatePassword(

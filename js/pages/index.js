@@ -67,7 +67,7 @@ async function loadCars(queryParams = {}) {
       renderPagination(response);
     }
   } catch (error) {
-    console.error("Error loading cars:", error.msg);
+    console.error("Error loading cars:", error);
     showError("Failed to load cars");
   }
 }
