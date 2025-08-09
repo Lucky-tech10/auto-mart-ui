@@ -5,7 +5,7 @@ let form, submitBtn;
 
 function init() {
   if (auth.isLoggedIn()) {
-    window.location.href = "/index";
+    window.location.href = "/";
     return;
   }
 
@@ -63,7 +63,7 @@ async function handleSubmit(e) {
     if (result.success) {
       showSuccess("Registration successful! Redirecting...");
       setTimeout(() => {
-        window.location.href = "/index";
+        window.location.href = "/";
       }, 1500);
     } else {
       showError(result.error);

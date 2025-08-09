@@ -5,7 +5,7 @@ let form, submitBtn;
 
 function initForgotPasswordPage() {
   if (auth.isLoggedIn()) {
-    window.location.href = "/index";
+    window.location.href = "/";
     return;
   }
 

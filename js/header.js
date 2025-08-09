@@ -41,7 +41,7 @@ class DynamicHeader {
     const headerHTML = `
       <header class="header">
         <nav class="nav-content">
-          <a href="/index" class="logo-container">
+          <a href="/" class="logo-container">
             <div class="logo-icon">
               <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_6_535)">
@@ -228,7 +228,7 @@ class DynamicHeader {
     return `
       <div class="nav-container">
         <nav class="nav-links" id="navLinks">
-          <a href="/index" class="tab">Car Listings</a>
+          <a href="/" class="tab">Car Listings</a>
           <a href="/add-car" class="tab">Create Listing</a>
          
           <div class="user-profile" id="userProfile">

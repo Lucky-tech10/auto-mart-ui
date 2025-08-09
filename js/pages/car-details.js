@@ -22,7 +22,7 @@ let offerModal, reportModal, offerAmount, submitOfferBtn, submitReportBtn;
 function init() {
   getCarIdFromURL();
   if (!carId) {
-    window.location.href = "/index";
+    window.location.href = "/";
     return;
   }
 
@@ -126,7 +126,7 @@ async function loadCarDetails() {
     console.error("Error loading car details:", error.message);
     showError("Failed to load car details");
     setTimeout(() => {
-      window.location.href = "/index";
+      window.location.href = "/";
     }, 2000);
   }
 }
