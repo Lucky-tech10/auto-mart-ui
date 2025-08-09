@@ -125,7 +125,7 @@ async function confirmDelete() {
       showError(response.msg || "Failed to delete car listing");
     }
   } catch (error) {
-    showError(error.msg || "Failed to delete car listing");
+    showError(error.message || "Failed to delete car listing");
   } finally {
     confirmDeleteBtn.disabled = false;
     confirmDeleteBtn.textContent = "Delete";

@@ -123,7 +123,7 @@ async function loadCarDetails() {
       updateActionButtons();
     }
   } catch (error) {
-    console.error("Error loading car details:", error.msg);
+    console.error("Error loading car details:", error.message);
     showError("Failed to load car details");
     setTimeout(() => {
       window.location.href = "/index.html";
@@ -134,12 +134,19 @@ async function loadCarDetails() {
 async function loadUserActions() {
   try {
     const response = await carAPI.getUserActions(carId);
+
     if (response.status === 200) {
-      userState = response.data;
+      const { hasOrdered, hasFlagged } = response.data;
+      userState.hasOrdered = hasOrdered;
+      userState.hasFlagged = hasFlagged;
+      // Reset order details - will be loaded when modal opens if needed
+      userState.currentOffer = 0;
+      userState.orderId = null;
+
       updateActionButtons();
     }
   } catch (error) {
-    console.error("Error loading user actions:", error.msg);
+    console.error("Error loading user actions:", error.message);
   }
 }
 
@@ -276,15 +283,36 @@ function redirectToLogin() {
 }
 
 // Modal functions
-function openModal(modalId) {
+async function openModal(modalId) {
   const modal = document.getElementById(modalId);
   if (!modal) return;
 
   modal.classList.add("active");
   document.body.style.overflow = "hidden";
 
+  // Load fresh order details when opening offer modal
+  if (modalId === "offerModal" && userState.hasOrdered && auth.isLoggedIn()) {
+    await loadOrderDetails();
+  }
+
   if (modalId === "offerModal") {
     configureOfferModal();
+  }
+}
+
+async function loadOrderDetails() {
+  try {
+    const response = await carAPI.getUserCarOrder(carId);
+
+    if (response.status === 200 && response.data) {
+      userState.currentOffer = response.data.amount;
+      userState.orderId = response.data.id;
+    }
+  } catch (error) {
+    console.error("Error loading order details:", error);
+    showError(error.message || "Failed to load order details");
+    userState.currentOffer = 0;
+    userState.orderId = null;
   }
 }
 
@@ -312,28 +340,35 @@ function configureOfferModal() {
   const submitBtn = document.getElementById("submitOfferBtn");
   const currentOffer = document.getElementById("currentOffer");
 
-  currentOffer.textContent = `₦${car.price.toLocaleString()}`;
+  // Show car price
+  if (currentOffer && car?.price) {
+    currentOffer.textContent = `₦${car.price.toLocaleString()}`;
+  }
 
-  if (userState.hasOrdered) {
-    // User is updating existing offer
-    modalTitle.textContent = "Update Your Offer";
-    offerAmountLabel.textContent = "New Offer Amount";
-    submitBtn.textContent = "Update Offer";
+  const hasValidOffer = userState.hasOrdered && userState.currentOffer > 0;
 
-    // Show current offer info
-    currentOfferInfo.style.display = "block";
-    currentUserOffer.textContent = `₦${userState.currentOffer.toLocaleString()}`;
-    offerAmount.value = userState.currentOffer;
-    submitBtn.disabled = false;
+  if (hasValidOffer) {
+    // Updating existing offer
+    if (modalTitle) modalTitle.textContent = "Update Your Offer";
+    if (offerAmountLabel) offerAmountLabel.textContent = "New Offer Amount";
+    if (submitBtn) submitBtn.textContent = "Update Offer";
+
+    if (currentOfferInfo) currentOfferInfo.style.display = "block";
+    if (currentUserOffer)
+      currentUserOffer.textContent = `₦${userState.currentOffer.toLocaleString()}`;
+    if (offerAmount) {
+      offerAmount.value = userState.currentOffer.toString();
+      setTimeout(() => validateOfferAmount(), 100);
+    }
   } else {
-    // User is making new offer
-    modalTitle.textContent = "Make an Offer";
-    offerAmountLabel.textContent = "Your Offer Amount";
-    submitBtn.textContent = "Submit Offer";
-    currentOfferInfo.style.display = "none";
+    // Making new offer
+    if (modalTitle) modalTitle.textContent = "Make an Offer";
+    if (offerAmountLabel) offerAmountLabel.textContent = "Your Offer Amount";
+    if (submitBtn) submitBtn.textContent = "Submit Offer";
 
-    offerAmount.value = "";
-    submitBtn.disabled = true;
+    if (currentOfferInfo) currentOfferInfo.style.display = "none";
+    if (offerAmount) offerAmount.value = "";
+    if (submitBtn) submitBtn.disabled = true;
   }
 }
 
@@ -402,42 +437,35 @@ async function handleOfferSubmit() {
     return;
   }
 
-  // Show loading state
   submitOfferBtn.disabled = true;
   submitOfferBtn.textContent = "Submitting...";
 
   try {
-    if (userState.hasOrdered) {
+    if (userState.hasOrdered && userState.orderId) {
       // Update existing offer
-      const res = await orderAPI.updatePrice(userState.orderId, amount);
-      if (res.status !== 200)
-        return showError(res.msg || "Failed to update offer");
-      showSuccess("Offer updated successfully!");
+      await orderAPI.updatePrice(userState.orderId, amount);
       userState.currentOffer = amount;
+      showSuccess("Offer updated successfully!");
     } else {
       // Create new offer
-      const res = await orderAPI.create({
+      const response = await orderAPI.create({
         car_id: carId,
         amount: amount,
       });
-      if (res.status !== 201)
-        return showError(res.msg || "Failed to submit offer");
 
-      // Save the order details from response
+      // Save the order details
       userState.hasOrdered = true;
       userState.currentOffer = amount;
-      userState.orderId = response.data?.id;
+      userState.orderId = response.data.id;
       showSuccess("Offer submitted successfully!");
       updateActionButtons();
     }
 
-    setTimeout(() => {
-      closeModal("offerModal");
-    }, 2000);
+    setTimeout(() => closeModal("offerModal"), 2000);
   } catch (error) {
-    showError(error.msg || "Failed to submit offer");
+    console.error("Error submitting offer:", error);
+    showError(error.message || "Failed to submit offer");
   } finally {
-    // Reset button state
     submitOfferBtn.disabled = false;
     submitOfferBtn.textContent = userState.hasOrdered
       ? "Update Offer"

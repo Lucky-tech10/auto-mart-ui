@@ -128,6 +128,8 @@ export const carAPI = {
   delete: (carId) => apiRequest(`/car/${carId}`, { method: "DELETE" }),
 
   getUserActions: (carId) => apiRequest(`/car/${carId}/actions`),
+
+  getUserCarOrder: (carId) => apiRequest(`/car/${carId}/order`),
 };
 
 // Order API functions

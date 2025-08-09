@@ -177,7 +177,7 @@ async function saveChanges(carId) {
     await loadUserListings();
     showSuccess("Changes saved successfully!");
   } catch (error) {
-    showError(error.msg || "Failed to save changes");
+    showError(error.message || "Failed to save changes");
   }
 }
 
