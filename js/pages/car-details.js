@@ -22,7 +22,7 @@ let offerModal, reportModal, offerAmount, submitOfferBtn, submitReportBtn;
 function init() {
   getCarIdFromURL();
   if (!carId) {
-    window.location.href = "/index.html";
+    window.location.href = "/index";
     return;
   }
 
@@ -126,7 +126,7 @@ async function loadCarDetails() {
     console.error("Error loading car details:", error.message);
     showError("Failed to load car details");
     setTimeout(() => {
-      window.location.href = "/index.html";
+      window.location.href = "/index";
     }, 2000);
   }
 }
@@ -278,7 +278,7 @@ function updateActionButtons() {
 function redirectToLogin() {
   showError("Please login to perform this action");
   setTimeout(() => {
-    window.location.href = "/login.html";
+    window.location.href = "/login";
   }, 1500);
 }
 

@@ -8,7 +8,7 @@ let form, submitBtn;
 function init() {
   // Redirect if already logged in
   if (auth.isLoggedIn()) {
-    window.location.href = "/index.html";
+    window.location.href = "/index";
     return;
   }
 
@@ -59,9 +59,9 @@ async function handleSubmit(e) {
         const isSamePage =
           !previousPage ||
           previousPage === window.location.href ||
-          previousPage.includes("login.html");
+          previousPage.includes("login");
 
-        window.location.href = isSamePage ? "/index.html" : previousPage;
+        window.location.href = isSamePage ? "/index" : previousPage;
       }, 1500);
     } else {
       showError(result.error || "Invalid credentials.");

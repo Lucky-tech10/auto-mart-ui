@@ -320,7 +320,7 @@ async function submitCarAd() {
     showSuccess("Car listing created successfully!");
     setTimeout(() => {
       resetForm();
-      window.location.href = "/my-listings.html";
+      window.location.href = "/my-listings";
     }, 3000);
   }
 }

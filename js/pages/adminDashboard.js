@@ -67,9 +67,13 @@ function renderCarRow(car) {
           <img src="${imageUrl}" alt="${car.make} ${
     car.model
   }" class="car-image">
-          <div class="car-details">
-            <h4>${car.make} ${car.model}</h4>
-          </div>
+          <a href="/car-details?id=${
+            car.id
+          }" style="text-decoration: none; color: inherit;">
+            <div class="car-details">
+              <h4>${car.make} ${car.model}</h4>
+            </div>
+          </a>
         </div>
       </td>
       <td>

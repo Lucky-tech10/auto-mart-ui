@@ -99,7 +99,7 @@ export function logout() {
   removeToken();
   currentUser = null;
   localStorage.removeItem("currentUser");
-  window.location.href = "/index.html";
+  window.location.href = "/index";
 }
 
 // Auth state checks
@@ -124,7 +124,7 @@ export function isAdmin() {
 
 export function requireAuth() {
   if (!isLoggedIn()) {
-    window.location.href = "/login.html";
+    window.location.href = "/login";
     return false;
   }
   return true;
@@ -133,7 +133,7 @@ export function requireAuth() {
 export function requireAdmin() {
   if (!isAdmin()) {
     alert("Access denied. Admin privileges required.");
-    window.location.href = "/index.html";
+    window.location.href = "/index";
     return false;
   }
   return true;

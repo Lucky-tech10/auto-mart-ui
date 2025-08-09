@@ -41,7 +41,7 @@ class DynamicHeader {
     const headerHTML = `
       <header class="header">
         <nav class="nav-content">
-          <a href="/index.html" class="logo-container">
+          <a href="/index" class="logo-container">
             <div class="logo-icon">
               <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_6_535)">
@@ -210,8 +210,8 @@ class DynamicHeader {
   getAuthButtons() {
     return `
       <div class="auth-buttons">
-        <a href="/login.html" class="button button-secondary">Sign In</a>
-        <a href="/register.html" class="button button-primary">Sign Up</a>
+        <a href="/login" class="button button-secondary">Sign In</a>
+        <a href="/register" class="button button-primary">Sign Up</a>
       </div>
     `;
   }
@@ -228,8 +228,8 @@ class DynamicHeader {
     return `
       <div class="nav-container">
         <nav class="nav-links" id="navLinks">
-          <a href="/index.html" class="tab">Car Listings</a>
-          <a href="/add-car.html" class="tab">Create Listing</a>
+          <a href="/index" class="tab">Car Listings</a>
+          <a href="/add-car" class="tab">Create Listing</a>
          
           <div class="user-profile" id="userProfile">
             <div class="user-data">
@@ -240,18 +240,18 @@ class DynamicHeader {
               </div>
             </div>
             <div class="dropdown-menu" id="dropdownMenu">
-              <a href="/update-password.html" class="dropdown-item">
+              <a href="/update-password" class="dropdown-item">
                 <span>⚙️</span>
                 Update Password
               </a>
-              <a href="/my-listings.html" class="dropdown-item">
+              <a href="/my-listings" class="dropdown-item">
                 <span>🚗</span>
                 My Listings
               </a>
               ${
                 isAdmin
                   ? `
-                <a href="/admin-dashboard.html" class="dropdown-item admin-only">
+                <a href="/admin-dashboard" class="dropdown-item admin-only">
                   <span>🔧</span>
                   View All Cars
                 </a>

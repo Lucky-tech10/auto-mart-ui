@@ -50,7 +50,7 @@ async function handleResetSubmit(e) {
     if (result.success) {
       showSuccess("Password reset successful! Redirecting to login...");
       setTimeout(() => {
-        window.location.href = "/login.html";
+        window.location.href = "/login";
       }, 2000);
     } else {
       showError(result.error);

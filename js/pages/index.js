@@ -142,7 +142,7 @@ function renderCarCard(car) {
     typeof car.price === "number" ? car.price.toLocaleString() : car.price;
 
   return `
-    <a href="/car-details.html?id=${
+    <a href="/car-details?id=${
       car.id
     }" style="text-decoration: none; color: inherit;">
       <div class="car-card">

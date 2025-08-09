@@ -1,0 +1,14 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/add-car", "destination": "/add-car.html" },
+    { "source": "/admin-dashboard", "destination": "/admin-dashboard.html" },
+    { "source": "/forgot-password", "destination": "/forgot-password.html" },
+    { "source": "/update-password", "destination": "/update-password.html" },
+    { "source": "/car-details", "destination": "/car-details.html" },
+    { "source": "/reset-password", "destination": "/reset-password.html" },
+    { "source": "/login", "destination": "/login.html" },
+    { "source": "/register", "destination": "/register.html" },
+    { "source": "/my-listings", "destination": "/my-listings.html" }
+  ]
+}
