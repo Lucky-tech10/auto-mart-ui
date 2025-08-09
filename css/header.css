@@ -191,6 +191,7 @@ a {
 .user-name {
   font-size: 14px;
   font-weight: 600;
+  text-transform: capitalize;
   color: #141414;
   line-height: 1;
 }
