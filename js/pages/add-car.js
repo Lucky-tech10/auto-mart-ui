@@ -143,7 +143,6 @@ function processPhotos(files) {
 
       if (processed === validFiles.length) {
         updatePhotoPreview();
-        clearErrors();
         setTimeout(() => {
           uploadProgress.style.display = "none";
           progressBar.style.width = "0%";
@@ -241,9 +240,6 @@ function validateForm() {
     "description",
   ];
   let isValid = true;
-
-  // Clear previous errors
-  clearErrors();
 
   // Validate required fields
   for (let fieldId of requiredFields) {
@@ -349,7 +345,6 @@ function resetForm() {
   selectedPhotos = [];
   mainPhotoIndex = 0;
   updatePhotoPreview();
-  clearErrors();
 }
 
 // Auto-format price input

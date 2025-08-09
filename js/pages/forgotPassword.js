@@ -40,7 +40,6 @@ async function handleSubmit(e) {
   }
 
   setLoading(true);
-  clearErrors();
 
   try {
     const result = await auth.forgotPassword(email);
@@ -48,8 +47,6 @@ async function handleSubmit(e) {
       showSuccess(
         "Password reset link sent to your email. Check your inbox and spam folder."
       );
-    } else {
-      showError(result.error);
     }
   } catch {
     showError("Something went wrong. Please try again.");
