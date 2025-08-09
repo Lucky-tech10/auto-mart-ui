@@ -5,7 +5,6 @@ import { showError, showSuccess } from "../utils/msg.js";
 // State variables
 let listings = [];
 let editingCarId = null;
-let originalData = {};
 
 // Page elements
 let tableBody, emptyState;
@@ -107,7 +106,7 @@ function renderCarRow(car) {
             isEditing
               ? `
             <button class="btn btn-primary" onclick="saveChanges('${car.id}')">Save</button>
-            <button class="btn btn-secondary" onclick="cancelEdit('${car.id}')">Cancel</button>
+            <button class="btn btn-secondary" onclick="cancelEdit()">Cancel</button>
           `
               : `
             <button class="btn btn-primary" onclick="editListing('${car.id}')">Edit</button>
@@ -120,22 +119,12 @@ function renderCarRow(car) {
 }
 
 function editListing(carId) {
-  const car = listings.find((c) => c.id === carId);
-  if (!car) return;
-
-  // Store original data
-  originalData = {
-    price: car.price,
-    status: car.status,
-  };
-
   editingCarId = carId;
   renderListings();
 }
 
-function cancelEdit(carId) {
+function cancelEdit() {
   editingCarId = null;
-  originalData = {};
   renderListings();
 }
 
@@ -157,31 +146,37 @@ async function saveChanges(carId) {
     return;
   }
 
+  const car = listings.find((c) => c.id === carId);
+  if (!car) {
+    showError("Car not found");
+    return;
+  }
+  if (car && newPrice === parseFloat(car.price) && newStatus === car.status) {
+    editingCarId = null;
+    return;
+  }
+
   try {
     // Update price if changed
-    const car = listings.find((c) => c.id === carId);
     if (car && newPrice !== parseFloat(car.price)) {
-      await carAPI.updatePrice(carId, newPrice);
+      const res = await carAPI.updatePrice(carId, newPrice);
+      if (res.status !== 200) {
+        showError(res.msg || "Failed to update price");
+      }
     }
 
     // Update status if changed
     if (car && newStatus !== car.status) {
-      await carAPI.updateStatus(carId, newStatus);
-    }
-
-    // Update local data
-    const carIndex = listings.findIndex((c) => c.id === carId);
-    if (carIndex !== -1) {
-      listings[carIndex].price = newPrice;
-      listings[carIndex].status = newStatus;
+      const res = await carAPI.updateStatus(carId, newStatus);
+      if (res.status !== 200) {
+        showError(res.msg || "Failed to update status");
+      }
     }
 
     editingCarId = null;
-    originalData = {};
-    renderListings();
+    await loadUserListings();
     showSuccess("Changes saved successfully!");
   } catch (error) {
-    console.error("Error saving changes:", error.msg);
     showError(error.msg || "Failed to save changes");
   }
 }

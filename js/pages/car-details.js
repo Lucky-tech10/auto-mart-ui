@@ -409,20 +409,24 @@ async function handleOfferSubmit() {
   try {
     if (userState.hasOrdered) {
       // Update existing offer
-      await orderAPI.updatePrice(userState.orderId, amount);
+      const res = await orderAPI.updatePrice(userState.orderId, amount);
+      if (res.status !== 200)
+        return showError(res.msg || "Failed to update offer");
       showSuccess("Offer updated successfully!");
       userState.currentOffer = amount;
     } else {
       // Create new offer
-      const response = await orderAPI.create({
+      const res = await orderAPI.create({
         car_id: carId,
         amount: amount,
       });
+      if (res.status !== 201)
+        return showError(res.msg || "Failed to submit offer");
 
       // Save the order details from response
       userState.hasOrdered = true;
       userState.currentOffer = amount;
-      userState.orderId = response.data.id;
+      userState.orderId = response.data?.id;
       showSuccess("Offer submitted successfully!");
       updateActionButtons();
     }
@@ -431,7 +435,7 @@ async function handleOfferSubmit() {
       closeModal("offerModal");
     }, 2000);
   } catch (error) {
-    showError(error.message || "Failed to submit offer");
+    showError(error.msg || "Failed to submit offer");
   } finally {
     // Reset button state
     submitOfferBtn.disabled = false;

@@ -114,17 +114,18 @@ async function confirmDelete() {
   confirmDeleteBtn.textContent = "Deleting...";
 
   try {
-    await carAPI.delete(carToDelete.id);
+    const deletedCarName = carToDelete.name;
+    const response = await carAPI.delete(carToDelete.id);
 
-    // Remove from local array
-    cars = cars.filter((car) => car.id !== carToDelete.id);
-    renderCars();
-
-    closeDeleteModal();
-    showSuccess(`${carToDelete.name} has been deleted successfully`);
+    if (response.status === 200) {
+      await loadAllCars();
+      closeDeleteModal();
+      showSuccess(`${deletedCarName} has been deleted successfully`);
+    } else {
+      showError(response.msg || "Failed to delete car listing");
+    }
   } catch (error) {
-    console.error("Error deleting car:", error);
-    showError(error.message || "Failed to delete car listing");
+    showError(error.msg || "Failed to delete car listing");
   } finally {
     confirmDeleteBtn.disabled = false;
     confirmDeleteBtn.textContent = "Delete";
