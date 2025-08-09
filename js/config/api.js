@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:5000/api/v1";
+const API_BASE_URL = "https://auto-mart-api.onrender.com/api/v1";
 
 // Token management
 const getToken = () => localStorage.getItem("authToken");
