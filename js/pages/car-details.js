@@ -179,7 +179,7 @@ function renderCarDetails() {
 }
 
 function updateSellerInfo() {
-  const user = auth.getCurrentUser();
+  const user = car.user || {};
 
   const userName = user ? `${user.first_name} ${user.last_name}` : "User";
   const userInitials = user

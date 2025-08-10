@@ -3,7 +3,7 @@ import { showError, showSuccess, clearErrors } from "../utils/msg.js";
 
 let form, submitBtn;
 
-function initForgotPasswordPage() {
+function init() {
   if (auth.isLoggedIn()) {
     window.location.href = "/";
     return;
@@ -64,4 +64,4 @@ function setLoading(isLoading) {
   submitBtn.textContent = isLoading ? "Sending..." : "Get Reset Password Link";
 }
 
-document.addEventListener("DOMContentLoaded", initForgotPasswordPage);
+document.addEventListener("DOMContentLoaded", init);
