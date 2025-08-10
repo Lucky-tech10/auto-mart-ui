@@ -55,13 +55,21 @@ async function handleSubmit(e) {
       setTimeout(() => {
         const previousPage = document.referrer;
 
-        // Avoid redirecting to login page or same page
-        const isSamePage =
+        // List of routes that should redirect to home instead
+        const protectedRoutes = [
+          "/login",
+          "/register",
+          "/forgot-password",
+          "/reset-password",
+        ];
+
+        // Check if previous page contains any protected routes
+        const isProtectedRoute =
           !previousPage ||
           previousPage === window.location.href ||
-          previousPage.includes("login");
+          protectedRoutes.some((route) => previousPage.includes(route));
 
-        window.location.href = isSamePage ? "/" : previousPage;
+        window.location.href = isProtectedRoute ? "/" : previousPage;
       }, 1500);
     } else {
       showError(result.error || "Invalid credentials.");

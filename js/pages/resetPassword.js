@@ -4,11 +4,6 @@ import { showError, showSuccess, clearErrors } from "../utils/msg.js";
 let form, submitBtn, token, email;
 
 function init() {
-  if (auth.isLoggedIn()) {
-    window.location.href = "/";
-    return;
-  }
-
   const urlParams = new URLSearchParams(window.location.search);
   token = urlParams.get("token");
   email = urlParams.get("email");
