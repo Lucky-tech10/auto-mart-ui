@@ -4,6 +4,11 @@ import { showError, showSuccess, clearErrors } from "../utils/msg.js";
 let form, submitBtn;
 
 function init() {
+  if (auth.isLoggedIn()) {
+    window.location.href = "/";
+    return;
+  }
+
   setupElements();
   setupEventListeners();
 }
